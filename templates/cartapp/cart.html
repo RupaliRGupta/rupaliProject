@@ -1,0 +1,56 @@
+{% load static %}
+{% include 'header2.html' %}
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Inser title</title>
+		<script>
+            $(document).ready(function(){
+                $.get('/cartapp/total/',function(data){
+                $('#total').val(data);
+                });
+            });
+			</script>
+        </head>
+            <body>
+                <form name="form" action="/orderapp/confirmOrder/" method="POST">
+                    {% csrf_token %}
+					 <caption><h1>Cart List</h1></caption>
+                   <table class="table">
+					    {% if cart %}
+						<thead class="thead-dark">
+                       <tr>
+                           <th>ID</th>
+                           <th>Food name</th>
+                           <th>Food Price</th>
+                           <th>Cart Quantity</th>
+						   <th>action</th>
+					   </tr>
+					   </thead>
+                       {% for c in cart %}
+					   <tbody  class="thead-light">
+                       <tr>
+                           <td>{{c.id}}</td>
+                           <td>{{c.name}}</td>
+                           <td>{{c.price}}</td>
+                           <td>{{c.foodQuantity}}</td>
+						   <td><a href="/cartapp/delete/{{c.id}}"><img src="{% static 'images/delete.png' %}" width=30 height=30 alt='delete'></a></td>
+                       </tr>
+							</tbody>
+                        {% endfor %}
+                    </table>
+					<div class="container">
+					<h5> <label for="Total">Total</label> </h5>
+					<input type="text" class="form-control" name="total" id="total" readonly/>
+					</div>
+ <!--<input type="text" id="total" name="total" ><br/>				
+<input type="submit" value="place order"/>-->
+
+<center><button type="submit" class="btn btn-primary active" value='place order'>Place Order</button></center>
+		{% else %}
+		{{ error }}
+		 {% endif %}
+</form>
+</body>
+</html>
+{% include "footer.html" %}

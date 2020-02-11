@@ -1,0 +1,25 @@
+ {% include "header2.html" %}
+<html>
+    <head>
+        <title>Order</title>
+    </head>
+	<script>
+            $(document).ready(function(){
+                $.get('/cartapp/total/',function(data){
+                $('#total').val(data);
+                });
+            });
+			</script>
+    <body class="container">
+	 <form name="form" action="/orderapp/placeOrderView/" method="POST" class="container">
+	 {% csrf_token %}
+		Username :<input type="text" class="form-control" value="{{ request.session.email }} " readonly />
+		Total Amount:<input type="text" class="form-control" id="total" readonly />	
+        Delivery Address:<input type="text" class="form-control" name="address" />
+		Contact Number:<input type="number" class="form-control" name="contact" />
+		<!--<input type="submit" value="Order">-->
+		<center><button type="submit" class="btn btn-primary active" value='order'>Order</button></center>
+		</form>
+    </body>
+</html>
+{% include "footer.html" %}

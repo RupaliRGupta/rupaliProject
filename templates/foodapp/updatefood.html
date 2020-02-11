@@ -1,0 +1,9 @@
+{% include "header2.html" %}
+<form method='POST'>
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type='submit' value='Update'>
+    {% csrf_token %}
+</form>
+{% include "footer.html" %}

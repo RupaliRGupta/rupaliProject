@@ -1,0 +1,30 @@
+{% include "header2.html" %}
+<html>
+    <head>
+        <title>Order</title>
+    </head>
+    <body>
+    <header>
+        </header>
+		<caption><h5 style="color:green">Welcome, {{ request.session.email }}</h5></caption>
+        <table class="table">
+			<thead class="thead-dark">
+            <tr>
+                <th>order Id</th>
+                <th>Total bill</th>
+                <th>Order Date</th>
+            </tr>
+			</thead>
+                {% for o in order %}
+			<tbody class="thead-light">
+            <tr>
+                <td>{{o.id}}</td>
+                <td>{{o.totalamt}}</td>
+                <td>{{o.date}}</td>
+            </tr>
+			</tbody>
+                {% endfor %}
+        </table>        
+     </body>
+</html>
+{% include "footer.html" %}
